@@ -7,9 +7,9 @@ import { NavbarSignedOut } from "./navbar-signed-out";
 
 export const Navbar = () => {
   return (
-    <div className="bg-brand-50 shadow-navbar relative flex h-[88px] items-center justify-between px-[72px]">
+    <div className="bg-primary text-white shadow-navbar relative flex h-[75px] items-center justify-between px-[72px]">
       {/* <Logo /> */}
-      NextCommerce
+      <div className="text-xl">NextCommerce</div>
       <div className="flex h-full items-center space-x-8">
         <SignedIn>
           <NavbarSignedIn />

@@ -33,7 +33,9 @@ export const UserMenu = async () => {
       <DropdownMenuContent align="end" className="w-[270px] rounded-[8px] p-0">
         <UserMenuItem text={emailAddress} />
         <div className="mx-2 border-b" />
-        <a href={PATHS.SUBTITLES}><UserMenuItem text="My Subtitles" /></a>
+        <a href={PATHS.PROFILE}><UserMenuItem text="Profile" /></a>
+        <a href={PATHS.CHANGE_PASSWORD}><UserMenuItem text="Change Password" /></a>
+        <a href={PATHS.NEW_PRODUCT}><UserMenuItem text="New Product" /></a>
         <div className="mx-2 border-b" />
         <SignOutButton>
           <UserMenuItem icon={<LogOutIcon />} text="Log out" />

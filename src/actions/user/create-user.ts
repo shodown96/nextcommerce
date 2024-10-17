@@ -1,5 +1,5 @@
 import type { CreateUserRequest, CreateUserResponse } from "@/types/user";
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma"
 
 export const createUser = async ({
   clerkUserId,
@@ -7,13 +7,13 @@ export const createUser = async ({
   name,
 }: CreateUserRequest): Promise<CreateUserResponse | null> => {
   try {
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await prisma.account.findUnique({
       where: { clerkUserId },
     });
 
     if (existingUser !== null) throw new Error("Existing user");
 
-    const newUser = await prisma.user.create({
+    const newUser = await prisma.account.create({
       data: {
         clerkUserId,
         email,

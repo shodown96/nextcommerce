@@ -1,5 +1,3 @@
-"use server";
-
 import { useMemo } from "react";
 import type { ClerkUserName } from "@/types/user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";

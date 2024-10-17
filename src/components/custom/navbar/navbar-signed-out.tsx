@@ -1,5 +1,3 @@
-"use server";
-
 import { PATHS } from "@/lib/constants/paths";
 import { NavbarItem } from "./navbar-item";
 

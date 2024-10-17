@@ -23,7 +23,7 @@ export default function AuthLayout({
         </div>
         <div className="px-10 pb-20 lg:px-20">{children}</div>
       </div>
-      <div className="col-span-6 h-screen p-3 max-lg:hidden">
+      <div className="col-span-6 min-h-screen p-3 max-lg:hidden">
         <div className="bg-primary rounded-xs animate-background-change-auth h-full grow bg-cover bg-center rounded-lg"></div>
       </div>
     </div>

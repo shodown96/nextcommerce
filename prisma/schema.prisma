@@ -5,16 +5,72 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL") // uses connection pooling
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // uses connection pooling
   // directUrl = env("DATABASE_URL_UNPOOLED") // uses a direct connection
 }
 
 model Account {
-  id        String   @id @default(cuid())
-  clerkId   String
-  name      String?
-  email     String?  @unique
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  id          String    @id @default(cuid())
+  clerkUserId String    @unique
+  name        String?
+  email       String?   @unique
+  createdAt   DateTime  @default(now()) @map(name: "created_at")
+  updatedAt   DateTime  @updatedAt @map(name: "updated_at")
+  business    Business?
+}
+
+model Business {
+  id          String   @id @default(cuid())
+  name        String   @default("")
+  email       String?  @unique
+  bio         String?  @default("")
+  phone       String?  @default("")
+  website     String?  @default("")
+  location    String?  @default("")
+  twitter     String?  @default("")
+  linkedIn    String?  @default("")
+  instagram   String?  @default("")
+  account     Account? @relation(fields: [accountId], references: [id], onDelete: Restrict)
+  accountId   String?  @unique
+  clerkUserId String?  @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+
+
+model File {
+  id      String       @id @default(cuid())
+  url     String
+  Product    Product[]
+}
+
+model Orders {
+  id              String         @id @default(cuid())
+  userId          String
+  amount          Float
+  currency        String
+  status          String
+  createdDate     DateTime       @default(now())
+  paymentIntentID String?        @unique
+  products        OrderProduct[]
+}
+
+model Product {
+  id          String         @id @default(cuid())
+  name        String
+  amount Float
+  orders      OrderProduct[]
+  media       File[]
+}
+
+model OrderProduct {
+  orderId   String  @map("order_id")
+  productId String  @map("product_id")
+  quantity  Int
+  order     Orders  @relation(fields: [orderId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@id([orderId, productId])
 }

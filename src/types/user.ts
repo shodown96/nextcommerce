@@ -1,10 +1,13 @@
 import type { User } from "@clerk/nextjs/server";
+import { Account } from "@prisma/client";
 
 export type ClerkUserName = User["firstName"];
 
 export interface UpdateMetadataRequest {
-  onboardingComplete?: boolean;
   userId: string;
+  secure?: boolean;
+  onboardingComplete?: boolean;
+  stripeConnectAccountId?: string
 }
 
 export interface UpdateMetadataResponse {
@@ -18,26 +21,14 @@ export interface CreateUserRequest {
 }
 
 export interface CreateUserResponse {
-  userId: number;
+  userId: string;
 }
 
 export interface GetUserRequest {
   clerkUserId: string;
 }
 
-export interface GetUserResponse {
-  clerkUserId: string;
-  companyId: null | number;
-  createdAt: Date;
-  email: string;
-  id: number;
-  name: null | string;
-  preferences: unknown;
-  privacyAccepted: boolean;
-  teamId: null | number;
-  termsAccepted: boolean;
-  updatedAt: Date;
-}
+export interface GetUserResponse extends Account { }
 
 export interface GetUserIdResponse {
   userId: number;

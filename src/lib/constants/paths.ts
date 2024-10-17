@@ -8,7 +8,12 @@ export enum PATHS {
     FORGOT_PASSWORD_VERIFY = "/forgot-password/verify",
     FORGOT_PASSWORD_RESET = "/forgot-password/reset",
     LANDING = "/",
+    EXPLORE = "/explore",
     ONBOARDING = "/onboarding",
+    ONBOARDING_BUSINESS = "/onboarding/business",
+    ONBOARDING_STRIPE = "/onboarding/business/stripe",
     CONTACT = "/contact",
-    ABOUT = "/about"
+    ABOUT = "/about",
+    PROFILE = "/profile",
+    NEW_PRODUCT = "/new-product"
 }

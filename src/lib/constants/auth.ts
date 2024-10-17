@@ -9,6 +9,10 @@ export const FORM_STEPS = {
 export const PLACEHOLDERS = {
   EMAIL: "name@mail.com",
   NAME: "Enter Name",
+  BUSINESS_NAME: "Enter Business Name",
+  WEBSITE: "Enter Website URL",
+  PHONE_NUMBER: "Enter Phone Number",
+  LOCATION: "Enter Location",
   NEW_PASSWORD: "Enter New Password",
   PASSWORD: "Enter Password",
   SURNAME: "Surname",

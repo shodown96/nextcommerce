@@ -8,12 +8,14 @@ import type {
 
 export const updateMetadata = async ({
   userId,
-  ...publicMetadata
+  secure = false,
+  ...metadata
 }: UpdateMetadataRequest): Promise<UpdateMetadataResponse | null> => {
   try {
 
     const user = await clerkClient.users.updateUserMetadata(userId, {
-      publicMetadata,
+      publicMetadata: !secure ? metadata : undefined,
+      privateMetadata: secure ? metadata : undefined,
     });
 
     return { userId: user.id };
