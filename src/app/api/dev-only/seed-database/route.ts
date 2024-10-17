@@ -2,6 +2,8 @@
 // import { NextRequest, NextResponse } from "next/server";
 // import { seedDatabase } from "@/actions/dev-only/seed-database";
 
+import { NextRequest, NextResponse } from "next/server";
+
 // export async function GET(request: NextRequest) {
 //   if (process.env.NODE_ENV !== "development") {
 //     // dev-only route
@@ -31,3 +33,7 @@
 
 //   return NextResponse.json(seedDatabaseResponse, { status: 200 });
 // }
+
+export async function GET(request: NextRequest) {
+    return NextResponse.json({}, { status: 200 });
+}
