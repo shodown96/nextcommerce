@@ -1,3 +1,5 @@
+"use server"
+
 import type { CreateUserRequest, CreateUserResponse } from "@/types/user";
 import prisma from "@/lib/prisma"
 

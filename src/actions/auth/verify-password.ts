@@ -1,3 +1,5 @@
+"use server"
+
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { ERROR_MESSAGES } from "@/lib/constants/messages";
 import {
