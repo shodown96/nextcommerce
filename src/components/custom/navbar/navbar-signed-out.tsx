@@ -22,10 +22,10 @@ export const NavbarSignedOut = () => {
         />
       </div>
       <NavbarItem
-        className="w-[196px]"
+        // type="button"
+        // className="w-[196px] border !border-white"
         href={PATHS.SIGN_IN}
         text="Sign In"
-        type="button"
       />
     </>
   );

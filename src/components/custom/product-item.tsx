@@ -4,6 +4,7 @@ import { formatMoney } from '@/lib/utils';
 import { Product } from '@prisma/client';
 import Image from 'next/image';
 import { YnsLink } from './yns-link';
+import { PATHS } from '@/lib/constants/paths';
 
 function ProductItem({
     item,
@@ -35,7 +36,7 @@ function ProductItem({
         //     <p>{item.description}</p>
         // </div>
         <div className="group">
-            <YnsLink href={`/product/${item.id}`}>
+            <YnsLink href={`/${PATHS.PRODUCTS}/${item.id}`}>
                 <article className="overflow-hidden rounded border bg-white">
                     {item.images[0] ? (
                         <div className="aspect-square w-full overflow-hidden bg-slate-100">
