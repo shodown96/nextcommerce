@@ -67,9 +67,6 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased ${poppins.className}`}
         >
-          {/* <div className="p-3 px-4 bg-primary flex justify-end lg:hidden">
-            {userId ? <UserMenu /> : null}
-          </div> */}
           {children}
           <Toaster position="top-right" />
         </body>

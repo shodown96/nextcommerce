@@ -1,4 +1,4 @@
-"use client"
+
 import { ResetPasswordType } from "@/lib/validations/auth";
 import { Account } from "@prisma/client";
 import { create } from "zustand";
@@ -8,12 +8,11 @@ interface State {
   user: Account | null;
   resetPasswordParams: ResetPasswordType;
 }
-interface InitState extends State { }
+
 interface Actions {
-  initialize: (params: InitState) => void;
+  initialize: () => void;
   setUser: (user: Account) => void;
   setResetPasswordParams: (params: ResetPasswordType) => void;
-  reset: () => void;
 }
 
 export const useAuthStore = create(
@@ -22,7 +21,10 @@ export const useAuthStore = create(
       user: null,
       resetPasswordParams: { email: "", code: "" },
       setUser: (params) => set({ user: params }),
-      initialize: (params) => set(params),
+      initialize: () => set({
+        user: null,
+        resetPasswordParams: { email: "", code: "" }
+      }),
       setResetPasswordParams: (params) =>
         set({
           resetPasswordParams: {
@@ -30,13 +32,16 @@ export const useAuthStore = create(
             ...params,
           },
         }),
-      reset: () =>
-        set({ resetPasswordParams: {} }),
     }),
     {
       name: "auth-storage",
       skipHydration: true, // Requires the useStoreHydration usage
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => sessionStorage),
     },
   ),
 );
+
+useAuthStore.setState({
+  user: null,
+  resetPasswordParams: { email: "", code: "" },
+})

@@ -10,6 +10,7 @@ datasource db {
   // directUrl = env("DATABASE_URL_UNPOOLED") // uses a direct connection
 }
 
+// In case you ever have to move away from Clerk 
 model Account {
   id          String    @id @default(cuid())
   clerkUserId String    @unique
@@ -18,6 +19,7 @@ model Account {
   createdAt   DateTime  @default(now()) @map(name: "created_at")
   updatedAt   DateTime  @updatedAt @map(name: "updated_at")
   business    Business?
+  products    Product[]
 }
 
 model Business {
@@ -38,12 +40,10 @@ model Business {
   updatedAt   DateTime @updatedAt
 }
 
-
-
 model File {
-  id      String       @id @default(cuid())
+  id      String    @id @default(cuid())
   url     String
-  Product    Product[]
+  Product Product[]
 }
 
 model Orders {
@@ -60,9 +60,15 @@ model Orders {
 model Product {
   id          String         @id @default(cuid())
   name        String
-  amount Float
+  price       Float
+  metadata    Json
+  variations  Json
+  description String
+  clerkUserId String?        @unique
+  account     Account?       @relation(fields: [accountId], references: [id], onDelete: Restrict)
+  accountId   String?        @unique
   orders      OrderProduct[]
-  media       File[]
+  images      File[]
 }
 
 model OrderProduct {

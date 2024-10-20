@@ -15,5 +15,20 @@ export enum PATHS {
     CONTACT = "/contact",
     ABOUT = "/about",
     PROFILE = "/profile",
-    NEW_PRODUCT = "/new-product"
+    NEW_PRODUCT = "/products/new",
+    PRODUCTS = "/products"
 }
+
+export const vercelHost =
+	process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
+		? process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
+		: process.env.NEXT_PUBLIC_VERCEL_URL;
+const vercelUrl = vercelHost ? `https://${vercelHost}` : undefined;
+const _publicUrl = process.env.NEXT_PUBLIC_URL || vercelUrl;
+
+// if (!publicUrl) {
+// 	throw new Error("Missing NEXT_PUBLIC_URL or NEXT_PUBLIC_VERCEL_URL variables!");
+// }
+
+// force type inference to string
+export const publicUrl = _publicUrl;

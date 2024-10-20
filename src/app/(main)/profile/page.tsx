@@ -2,7 +2,10 @@ import React from 'react'
 
 function Page() {
     return (
-        <div>ProfilePage</div>
+        <div className='p-10'>
+            Your products
+            Your Orders
+        </div>
     )
 }
 

@@ -32,7 +32,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         {touched && error && (
-          <label className={"text-sm text-red-500 absolute"}>
+          <label className={"text-sm text-red-500 absolute mt-1"}>
             {error?.message || typeof error === "string" ? error : null}
           </label>
         )}

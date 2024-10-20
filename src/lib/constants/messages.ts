@@ -1,4 +1,5 @@
 export const ERROR_MESSAGES = {
+  BadRequestError: "Bad Request Error",
   AccountAlreadyCreated: "You already have an account with us.",
   AlreadySignedIn: "You're already signed in.",
   AuthenticationError: "You're not signed in.",
@@ -19,6 +20,7 @@ export const VALIDATION_MESSAGES = {
   CodeRequired: "Verification code is required.",
   EmailInvalid: "Please enter a valid email.",
   EmailRequired: "Email is required.",
+  Required: "{} is required.",
   FirstNameRequired: "First name is required.",
   LastNameRequired: "Last name is required.",
   PasswordMismatch: "Passwords must match!",

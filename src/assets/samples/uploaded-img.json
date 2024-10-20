@@ -1,0 +1,21 @@
+{
+    "asset_id": "8d02b1b4b9302a7056ebd81acad6ede6",
+    "public_id": "nextcommerce/product/lim7k2gybjkxpcsrphjz",
+    "version": 1729267166,
+    "version_id": "1787431c6b91564b6036191e3b7b149e",
+    "signature": "41d634ee388352666603c462ad4b5ce1fc93e488",
+    "width": 3896,
+    "height": 2783,
+    "format": "jpg",
+    "resource_type": "image",
+    "created_at": "2024-10-18T15:59:26Z",
+    "tags": [],
+    "bytes": 596249,
+    "type": "upload",
+    "etag": "92ea2e73f5346ebd3a58deb4c5164782",
+    "placeholder": false,
+    "url": "http://res.cloudinary.com/dwzhnrcdv/image/upload/v1729267166/nextcommerce/product/lim7k2gybjkxpcsrphjz.jpg",
+    "secure_url": "https://res.cloudinary.com/dwzhnrcdv/image/upload/v1729267166/nextcommerce/product/lim7k2gybjkxpcsrphjz.jpg",
+    "folder": "nextcommerce/product",
+    "api_key": "599159345113815"
+}

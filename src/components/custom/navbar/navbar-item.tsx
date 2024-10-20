@@ -29,8 +29,8 @@ export const NavbarItem = ({
   );
 
   const linkStyles = cn(
-    "text-white h-full border-b-4 border-transparent px-1 transition-all hover:font-bold",
-    isActive && "border-white font-bold",
+    "text-white h-full border-transparent px-1 transition-all hover:font-bold",
+    isActive && "font-bold",
   );
 
   const buttonStyles =

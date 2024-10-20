@@ -1,0 +1,23 @@
+{
+   "name": "Item A",
+   "description": "Just a simple item bruhhh",
+   "price": 50.0,
+   "metadata": [{ "label": "Brand", "value": "Cartier" }],
+   "variations": [
+      {
+         "label": "Size",
+         "options": [
+            { "label": "Medium", "value": "Medium" },
+            { "label": "Large", "value": "Large" }
+         ]
+      },
+      {
+         "label": "Color",
+         "options": [
+            { "label": "Black", "value": "#000" },
+            { "label": "White", "value": "#fff" }
+         ]
+      }
+   ],
+   "images": []
+}

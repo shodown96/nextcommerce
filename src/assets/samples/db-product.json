@@ -1,0 +1,44 @@
+{
+    "id": "cm2ezzjsl0005119tefik2ite",
+    "name": "Item A",
+    "price": 50,
+    "metadata": [
+        {
+            "label": "Brand",
+            "value": "Cartier"
+        }
+    ],
+    "variations": [
+        {
+            "label": "Size",
+            "options": [
+                {
+                    "label": "Medium",
+                    "value": "Medium"
+                },
+                {
+                    "label": "Large",
+                    "value": "Large"
+                }
+            ]
+        },
+        {
+            "label": "Color",
+            "options": [
+                {
+                    "label": "Black",
+                    "value": "#000"
+                },
+                {
+                    "label": "White",
+                    "value": "#fff"
+                }
+            ]
+        }
+    ],
+    "description": "Just a simple item bruhhh",
+    "images": [
+        "https://res.cloudinary.com/dwzhnrcdv/image/upload/v1729272138/nextcommerce/product/h99lumrusjqo8vceszy5.jpg",
+        "https://res.cloudinary.com/dwzhnrcdv/image/upload/v1729272145/nextcommerce/product/kswlkv61pxse3dqdrtvh.jpg"
+    ]
+}

@@ -6,9 +6,13 @@ import {
 } from "@/components/ui/file-uploader";
 
 import { Paperclip } from "lucide-react";
+import { useEffect, useState } from "react";
 import { DropzoneOptions } from "react-dropzone";
 
-const FileSvgDraw = () => {
+const FileSvgDraw = ({
+    label = "Click to upload or drag and drop",
+    acceptedText = "MP3, M4A, MOV or MP4"
+}) => {
     return (
         <>
             <svg
@@ -27,11 +31,12 @@ const FileSvgDraw = () => {
                 />
             </svg>
             <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">
-                <span className="font-semibold">Click to upload</span>
-                &nbsp; or drag and drop
+                {/* <span className="font-semibold">Click to upload</span>
+                &nbsp; or drag and drop */}
+                {label}
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-                MP3, M4A, MOV or MP4
+                {acceptedText}
             </p>
         </>
     );
@@ -40,11 +45,17 @@ const FileSvgDraw = () => {
 export const UploadFileInput = ({
     files,
     setFiles,
-    dropzoneOptions
+    dropzoneOptions,
+    label,
+    acceptedText,
+    className = "",
 }: {
     files: File[],
     setFiles: (value: File[] | null) => void,
-    dropzoneOptions: DropzoneOptions
+    dropzoneOptions: DropzoneOptions,
+    label?: string,
+    acceptedText?: string
+    className?: string
 }) => {
     return (
         <FileUploader
@@ -59,7 +70,9 @@ export const UploadFileInput = ({
                     <p className="text-gray-400">Drop files here</p>
                 </div> */}
                 <div className="flex items-center justify-center flex-col pt-3 pb-4 w-full ">
-                    <FileSvgDraw />
+                    <FileSvgDraw
+                        label={label}
+                        acceptedText={acceptedText} />
                 </div>
             </FileInput>
             <FileUploaderContent className="min-h-5 overflow-y-auto">
