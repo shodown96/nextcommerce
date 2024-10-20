@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 import { ProductsResponseProps } from "@/types/product";
 import { auth } from "@clerk/nextjs/server";
 
-export const getUserProducts = async (): Promise<ProductsResponseProps> => {
+export const getUserProducts = async (): Promise<ProductsResponseProps | any[]> => {
     try {
         const { userId } = auth()
 

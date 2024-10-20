@@ -3,7 +3,7 @@
 import prisma from "@/lib/prisma";
 import { ProductResponseProps } from "@/types/product";
 
-export const getProduct = async (productId: string): Promise<ProductResponseProps> => {
+export const getProduct = async (productId: string): Promise<ProductResponseProps | null> => {
     try {
         const product = await prisma.product.findUnique({
             where: { id: productId },
