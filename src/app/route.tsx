@@ -2,6 +2,6 @@ import { PATHS } from "@/lib/constants/paths";
 import { redirect } from "next/navigation";
 
 
-export default function Home() {
+export async function GET() {
   return redirect(PATHS.EXPLORE)
 }

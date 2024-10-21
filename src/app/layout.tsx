@@ -1,18 +1,9 @@
-import {
-  ClerkProvider,
-  // SignInButton,
-  // SignOutButton,
-  // SignedIn,
-  // SignedOut,
-  // UserButton
-} from '@clerk/nextjs';
+import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from "next";
+import { Poppins } from "next/font/google";
 import localFont from "next/font/local";
-import { Poppins } from "next/font/google"
-import "./globals.css";
-import { auth } from '@clerk/nextjs/server';
-import { UserMenu } from '@/components/custom/navbar/user-menu';
 import { Toaster } from 'react-hot-toast';
+import "./globals.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -60,7 +51,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const { userId }: { userId: string | null } = auth()
   return (
     <ClerkProvider>
       <html lang="en">
