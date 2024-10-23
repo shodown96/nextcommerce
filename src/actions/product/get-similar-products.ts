@@ -2,7 +2,7 @@
 
 import prisma from "@/lib/prisma";
 
-export const getProducts = async () => {
+export const getSimilarProducts = async (productId?: string) => {
     try {
 
         const products = await prisma.product.findMany({

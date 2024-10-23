@@ -14,25 +14,6 @@ const imageObject = z
     .refine((file) => file.size <= 1024 * 1024, 'File size should be less than 1MB')
     .refine((file) => ['image/jpeg', 'image/png'].includes(file.type), 'Only .jpg and .png files are allowed')
 
-
-// export const NewProduct = z.object({
-//     name: z.string({ required_error: format(VALIDATION_MESSAGES.Required, 'Product Name') }),
-//     price: z.number({ required_error: format(VALIDATION_MESSAGES.Required, 'Price') }),
-//     description: z.string({ required_error: format(VALIDATION_MESSAGES.Required, 'Description') }),
-//     metadata: z.array(fieldObject),
-//     variations: z.array(
-//         z.object({
-//             label: z.string({ required_error: format(VALIDATION_MESSAGES.Required, 'Label') }),
-//             options: z.array(fieldObject)
-//         })
-//     ),
-//     images: z.array(imageObject)
-// });
-
-// export const NewProductSchema =
-//     toFormikValidationSchema(NewProduct);
-// export type NewProductSchemaType = z.infer<typeof NewProduct>;
-
 export const NewProductDetails = z.object({
     name: z.string({ required_error: format(VALIDATION_MESSAGES.Required, 'Product Name') }),
     price: z.number({ required_error: format(VALIDATION_MESSAGES.Required, 'Price') }),

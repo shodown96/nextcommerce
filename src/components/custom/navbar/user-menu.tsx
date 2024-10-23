@@ -37,8 +37,11 @@ export const UserMenu = async () => {
         <a href={PATHS.CHANGE_PASSWORD}><UserMenuItem text="Change Password" /></a>
         <a href={PATHS.NEW_PRODUCT}><UserMenuItem text="New Product" /></a>
         <div className="mx-2 border-b" />
+        <a href={PATHS.LANDING} className="md:hidden"><UserMenuItem text="Home" /></a>
+        <a href={PATHS.EXPLORE} className="md:hidden"><UserMenuItem text="Explore" /></a>
+        <div className="mx-2 border-b" />
         <SignOutButton>
-          <UserMenuItem icon={<LogOutIcon />} text="Log out" />
+          <UserMenuItem icon={<LogOutIcon />} text="Sign out" />
         </SignOutButton>
       </DropdownMenuContent>
     </DropdownMenu>

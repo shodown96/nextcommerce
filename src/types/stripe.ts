@@ -1,1 +1,1 @@
-type Money = { amount: number; currency: string };
+type Money = { amount: number; currency?: string };

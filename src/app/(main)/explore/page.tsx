@@ -1,14 +1,13 @@
 "use client"
 
 import { getProducts } from '@/actions/product/get-products'
-import ProductItem from '@/components/custom/product-item'
-import getBlurredImageUrl from '@/lib/images'
+import ProductItem from '@/components/custom/product/product-item'
 import { ProductsResponseProps } from '@/types/product'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function ExplorePage() {
 
-    const [blurDataUrls, setBlurDataUrls] = useState<Record<string, string>>({})
+    // const [blurDataUrls, setBlurDataUrls] = useState<Record<string, string>>({})
     const [products, setProducts] = useState<ProductsResponseProps[]>([])
     useEffect(() => {
         const gget = async () => {

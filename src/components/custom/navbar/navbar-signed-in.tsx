@@ -9,10 +9,12 @@ export const NavbarSignedIn = () => {
       <NavbarItem
         href={PATHS.LANDING}
         text={`Home`}
+        className="max-md:hidden"
       />
       <NavbarItem
         href={PATHS.EXPLORE}
         text={`Explore`}
+        className="max-md:hidden"
       />
       <UserMenu />
     </div>

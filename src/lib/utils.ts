@@ -2,6 +2,7 @@ import { ClerkError } from "@/types/auth";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { stripeCurrencies } from "./constants/stripe";
+import { CartItem } from "@/types/cart";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -91,13 +92,13 @@ const getDecimalsForStripe = (currency: string) => {
 	return decimals;
 };
 
-export const getStripeAmountFromDecimal = ({ amount: major, currency }: Money) => {
+export const getStripeAmountFromDecimal = ({ amount: major, currency = "USD" }: Money) => {
 	const decimals = getDecimalsForStripe(currency);
 	const multiplier = 10 ** decimals;
 	return Number.parseInt((major * multiplier).toFixed(0), 10);
 };
 
-export const getDecimalFromStripeAmount = ({ amount: minor, currency }: Money) => {
+export const getDecimalFromStripeAmount = ({ amount: minor, currency = "USD" }: Money) => {
 	assertInteger(minor);
 	const decimals = getDecimalsForStripe(currency);
 	const multiplier = 10 ** decimals;
@@ -106,7 +107,7 @@ export const getDecimalFromStripeAmount = ({ amount: minor, currency }: Money) =
 
 export const formatMoney = ({
 	amount: minor,
-	currency,
+	currency = 'USD',
 	locale = "en-US",
 }: Money & { locale?: string }) => {
 	const amount = getDecimalFromStripeAmount({ amount: minor, currency });
@@ -114,4 +115,38 @@ export const formatMoney = ({
 		style: "currency",
 		currency,
 	}).format(amount);
+};
+
+export const capitalize = (str: string) => (str[0] ? str[0].toUpperCase() + str.slice(1) : "");
+
+export const deslugify = (slug: string) => {
+	return slug
+		.split("-")
+		.map((part) => capitalize(part))
+		.join(" ");
+};
+
+export const safeJsonParse = (str: string | null | undefined): unknown => {
+	if (str === null || str === undefined) {
+		return null;
+	}
+	try {
+		return JSON.parse(str);
+	} catch {
+		return null;
+	}
+};
+
+
+export const formatProductName = (name: string, variant?: string) => {
+	if (!variant) {
+		return name;
+	}
+	return `${name} (${deslugify(variant)})`;
+};
+
+export const totalPrice = (cart : CartItem[]) => {
+  return cart.reduce((acc, item) => {
+    return acc + item.price! * item.quantity!;
+  }, 0);
 };

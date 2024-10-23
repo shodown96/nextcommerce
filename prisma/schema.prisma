@@ -58,17 +58,19 @@ model Orders {
 }
 
 model Product {
-  id          String         @id @default(cuid())
-  name        String
-  price       Float
-  metadata    Json
-  variations  Json
-  description String
-  clerkUserId String?        @unique
-  account     Account?       @relation(fields: [accountId], references: [id], onDelete: Restrict)
-  accountId   String?        @unique
-  orders      OrderProduct[]
-  images      File[]
+  id             String         @id @default(cuid())
+  name           String
+  price          Float
+  metadata       Json
+  variations     Json
+  description    String
+  stock          Int            @default(1) // move to metadata?
+  discountAmount Float          @default(0) // move to metadata?
+  clerkUserId    String?        @unique
+  account        Account?       @relation(fields: [accountId], references: [id], onDelete: Restrict)
+  accountId      String?        @unique
+  orders         OrderProduct[]
+  images         File[]
 }
 
 model OrderProduct {

@@ -6,15 +6,20 @@ import React from 'react';
 
 function MainLayout({
     children,
+    modal
 }: Readonly<{
     children: React.ReactNode;
+    modal: React.ReactNode;
 }>) {
     return (
         <>
             <Navbar />
             <Hydrant>
                 <AuthGuard>
-                    <div className=''>{children}</div>
+                    <main>
+                        {children}
+                        {modal}
+                    </main>
                 </AuthGuard>
             </Hydrant>
         </>
