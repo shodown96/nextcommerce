@@ -289,13 +289,13 @@ export const FileUploaderItem = forwardRef<
       ref={ref}
       className={cn(
         buttonVariants({ variant: "ghost" }),
-        "h-6 p-1 justify-between cursor-pointer relative",
+        "h-6 p-1 justify-between cursor-pointer relative flex",
         className,
         isSelected ? "bg-muted" : ""
       )}
       {...props}
     >
-      <div className="font-medium leading-none tracking-tight flex items-center gap-1.5 h-full w-full">
+      <div className="font-medium leading-none tracking-tight flex items-center gap-1.5 h-full w-full overflow-hidden flex-[0.9]">
         {children}
       </div>
       <button

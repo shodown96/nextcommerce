@@ -17,7 +17,8 @@ export enum PATHS {
     PROFILE = "/profile",
     NEW_PRODUCT = "/products/new",
     PRODUCTS = "/products",
-    CART_OVERLAY = "/cart-overlay"
+    CART_OVERLAY = "/cart-overlay",
+    ORDERS = "/orders"
 }
 
 export const vercelHost =

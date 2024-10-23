@@ -6,6 +6,9 @@ export interface CreateProductRequestProps {
     product: ProductWithoutImages & { images: File[] },
 
 }
+export interface UpdateProductRequestProps extends CreateProductRequestProps {
+    productId: string
+}
 export type CreateProductResponseProps = {
     name: string;
     price: number;
@@ -18,6 +21,9 @@ export type CreateProductResponseProps = {
     discountAmount: number;
     clerkUserId: string | null;
     accountId: string | null;
+}
+
+export interface UpdateProductResponseProps extends CreateProductResponseProps {
 }
 
 export type Option = { label: string, value: string }

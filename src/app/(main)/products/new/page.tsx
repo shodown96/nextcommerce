@@ -1,30 +1,24 @@
 "use client"
 
-import { createProduct } from '@/actions/product/create-product';
 import AuthTitle from '@/components/custom/auth-title';
+import ProductSummary from '@/components/custom/product/product-summary';
 import Tabs from '@/components/custom/tabs';
 import ProductDetailsForm from '@/components/forms/product-details';
 import ProductExtrasForm from '@/components/forms/product-extras';
 import ProductImagesForm from '@/components/forms/product-images';
 import ProductVariationsForm from '@/components/forms/product-variations';
-import { MESSAGES } from '@/lib/constants/messages';
+import { Input } from '@/components/ui/input';
 import { useProductStore } from '@/lib/stores/product';
 import { useState } from 'react';
-import toast from 'react-hot-toast';
 
 const TAB_ITEMS = ['details', 'variations', 'metadata', 'images']
 function NewProductPage() {
   const [tab, setTab] = useState(0)
-  const { newProductParams } = useProductStore()
+  const { productParams } = useProductStore()
 
   const handleSubmit = async (values: any) => {
     if (tab < TAB_ITEMS.length - 1) {
       setTab(tab + 1)
-    } else {
-      const created = await createProduct(newProductParams as any)
-      if (created) {
-        toast.success(MESSAGES.Success)
-      }
     }
   }
 
@@ -36,34 +30,42 @@ function NewProductPage() {
 
   return (
     <div className='p-10'>
-      <AuthTitle
-        title='New Product'
-        description='Tell us more about your product' />
+      <div className="flex flex-wrap justify-center gap-10">
+        <div className="xl:flex-[0.6] pt-5">
+          <AuthTitle
+            title='New Product'
+            description='Tell us more about your product' />
 
-      <Tabs
-        activeTab={tab}
-        setActiveTab={setTab}
-        clickable={false}
-        items={TAB_ITEMS}
-      />
-      <div className="flex gap-10">
-        <div className="xl:flex-[0.5] pt-5">
+          <div className="max-lg:hidden">
+            <Tabs
+              activeTab={tab}
+              setActiveTab={setTab}
+              clickable={false}
+              items={TAB_ITEMS}
+            />
+          </div>
+          <div className="lg:hidden">
+            <Input disabled value={TAB_ITEMS[tab]} className='capitalize'/>
+          </div>
+          <br />
           {tab === 0 ? (
-            <ProductDetailsForm onSubmit={handleSubmit} initalValues={newProductParams} />
+            <ProductDetailsForm onSubmit={handleSubmit} initalValues={productParams} />
           ) : null}
           {tab === 1 ? (
-            <ProductVariationsForm onSubmit={handleSubmit} initalValues={newProductParams} goBack={goBack} />
+            <ProductVariationsForm onSubmit={handleSubmit} initalValues={productParams} goBack={goBack} />
           ) : null}
           {tab === 2 ? (
-            <ProductExtrasForm onSubmit={handleSubmit} initalValues={newProductParams} goBack={goBack} />
+            <ProductExtrasForm onSubmit={handleSubmit} initalValues={productParams} goBack={goBack} />
           ) : null}
           {tab === 3 ? (
-            <ProductImagesForm onSubmit={handleSubmit} initalValues={newProductParams} goBack={goBack} />
+            <ProductImagesForm onSubmit={handleSubmit} initalValues={productParams} goBack={goBack} />
           ) : null}
         </div>
 
         <div className='xl:flex-[0.5]'>
-
+          <div className="bg-primary rounded-lg min-h-[80vh] w-full min-w-[300px]">
+            <ProductSummary />
+          </div>
         </div>
       </div>
     </div>

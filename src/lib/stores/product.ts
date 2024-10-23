@@ -4,21 +4,25 @@ import { Account } from "@prisma/client";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { NewProductDetailsSchemaType, NewProductSchemaType } from "../validations/product";
+import { CreateProductResponseProps } from "@/types/product";
 
 interface State {
-  newProductParams: Partial<NewProductSchemaType>;
+  productParams: Partial<NewProductSchemaType>;
+  selectedProduct: CreateProductResponseProps | null;
   newProductDetails: Partial<NewProductDetailsSchemaType>;
 }
 
 interface Actions {
   initialize: () => void;
-  setNewProductParams: (user: Partial<NewProductSchemaType>) => void;
+  setProductParams: (productParams: Partial<NewProductSchemaType>) => void;
+  selectProduct: (selectedProduct: CreateProductResponseProps) => void;
 }
 
 export const useProductStore = create(
   persist<Actions & State>(
     (set, get) => ({
-      newProductParams: {
+      selectedProduct: null,
+      productParams: {
         name: "",
         description: "",
         price: 0,
@@ -37,12 +41,12 @@ export const useProductStore = create(
         price: 0,
       },
       initialize: () => set({
-        newProductParams: {}
+        productParams: {}
       }),
-      setNewProductParams: (params) => {
+      setProductParams: (params) => {
         set({
-          newProductParams: {
-            ...get().newProductParams,
+          productParams: {
+            ...get().productParams,
             ...params,
           },
         }),
@@ -53,7 +57,8 @@ export const useProductStore = create(
               price: params.price
             }
           })
-      }
+      },
+      selectProduct: (selectedProduct) => set({ selectedProduct })
     }),
     {
       name: "product-storage",
@@ -64,5 +69,5 @@ export const useProductStore = create(
 );
 
 useProductStore.setState({
-  newProductParams: {}
+  productParams: {}
 })

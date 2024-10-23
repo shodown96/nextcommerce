@@ -9,10 +9,12 @@ function ProductExtrasForm({
     onSubmit = () => { },
     goBack = () => { },
     initalValues,
+    productId = ""
 }: {
     goBack?: (() => void)
     onSubmit: (values: any) => void,
-    initalValues: any
+    initalValues: any,
+    productId?:string
 }) {
 
     const formik = useFormik<NewProductExtrasSchemaType>({
@@ -42,7 +44,7 @@ function ProductExtrasForm({
         <form onSubmit={handleSubmit}>
             <div className='flex flex-col gap-4 mb-4'>
                 {values.metadata.map((v, i) => (
-                    <div className='flex items-end gap-2 w-full' key={i}>
+                    <div className='flex items-end justify-end gap-2 w-full max-lg:flex-wrap' key={i}>
                         <Input
                             id="label"
                             label={v.label || "Label"}
@@ -67,7 +69,7 @@ function ProductExtrasForm({
                         />
                         <Trash2Icon
                             onClick={() => removeMetadata(i)}
-                            className='h-10 w-10 cursor-pointer' />
+                            className='h-10 w-10 cursor-pointer max-lg:h-6 max-lg:w-6' />
                     </div>
                 ))}
                 <div className="flex justify-end">

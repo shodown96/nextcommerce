@@ -12,32 +12,46 @@ import { UploadFileInput } from '../custom/files-input';
 import { createProduct } from '@/actions/product/create-product';
 import { File as DBFile } from '@prisma/client';
 import { CreateProductRequestProps } from '@/types/product';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { PATHS } from '@/lib/constants/paths';
+import { updateProduct } from '@/actions/product/update-product';
+import { Trash2 } from 'lucide-react';
 
 function ProductImagesForm({
     onSubmit = () => { },
     goBack = () => { },
     initalValues,
+    productId = ""
 }: {
     goBack?: (() => void)
     onSubmit: (values: any) => void,
-    initalValues: any
+    initalValues: any,
+    productId?: string
 }) {
 
     const router = useRouter()
-    const { newProductParams, initialize } = useProductStore()
+
+    const { productParams, initialize } = useProductStore()
     const [previews, setPreviews] = useState<string[]>([])
+    const [oldImages, setOldImages] = useState<string[]>([])
     const [status, setStatus] = useState("")
     const formik = useFormik<NewProductImagesSchemaType>({
-        initialValues: initalValues as NewProductImagesSchemaType,
+        initialValues: {
+            images: []
+        },
         onSubmit: async (values) => {
             await uploadProduct()
         },
         validateOnBlur: true,
         validationSchema: NewProductImagesSchema,
     });
-
+    const handleRemove = async (url: string) => {
+        const result = await axios.post("/api/cloudinary/delete", { url })
+        if (result.status === 200) {
+            console.log(result)
+            setOldImages(oldImages.filter(v => v !== url))
+        }
+    }
     const uploadProduct = async () => {
         // const instance = axios.create({
         //     baseURL:'/api/cloudinary'
@@ -46,18 +60,20 @@ function ProductImagesForm({
         setStatus("Uploading images...")
         const uploadedImages: DBFile[] = []
         try {
-            for (const image of values.images) {
-                const converted = await convertToBase64(image)
-                const result = await axios.post("/api/cloudinary/upload", {
-                    file: converted,
-                    folder: "product"
-                })
-                if (result) {
-                    console.log(result)
-                    uploadedImages.push(result.data)
+            if (values.images.length) {
+                for (const image of values.images) {
+                    const converted = await convertToBase64(image)
+                    const result = await axios.post("/api/cloudinary/upload", {
+                        file: converted,
+                        folder: "product"
+                    })
+                    if (result.status === 200) {
+                        console.log(result)
+                        uploadedImages.push(result.data)
+                    }
                 }
+                toast.success('Uploaded images successfully!')
             }
-            toast.success('Uploaded images successfully!')
         } catch (error) {
             toast.error('Failed to uploaded images.')
             setStatus("")
@@ -65,20 +81,20 @@ function ProductImagesForm({
         }
         // }
 
-        setStatus("Creating product...")
+        setStatus("Submitting product...")
         const product = {
-            ...newProductParams,
+            ...productParams,
             images: uploadedImages
         } as CreateProductRequestProps['product']
 
-        const result = await createProduct({ product })
+        const result = productId ? await updateProduct({ product, productId }) : await createProduct({ product })
         if (result) {
             console.log(result)
             toast.success(MESSAGES.Success)
             router.push(`${PATHS.PRODUCTS}/${result.id}`)
             initialize()
         } else {
-            toast.error('Failed to create product.')
+            toast.error('Failed to Ssubmit product.')
             setStatus("")
         }
         setStatus("")
@@ -97,19 +113,28 @@ function ProductImagesForm({
                 URL.revokeObjectURL(v)
             })
             setPreviews(newPreviews)
+        } else {
+
+        setPreviews([])
         }
         return () => { previews.map(v => { URL.revokeObjectURL(v) }) }
     }, [values.images])
+
+    useEffect(() => {
+        if (productId) {
+            setOldImages(initalValues.images)
+        }
+    }, [])
 
     return (
         <form onSubmit={handleSubmit}>
             <div className="min-h-[300px]">
                 <UploadFileInput
                     files={values.images}
-                    acceptedText='JPEG, WEBP or PNG images only'
+                    acceptedText={`JPEG, WEBP or PNG images only. Max images: ${4 - oldImages.length}`}
                     dropzoneOptions={{
                         multiple: true,
-                        maxFiles: 4,
+                        maxFiles: 4 - oldImages.length,
                         maxSize: 1024 * 1024 * 1024 * 1,
                         accept: {
                             // 'image/*': [],
@@ -124,15 +149,33 @@ function ProductImagesForm({
                         setFieldValue('images', values)
                     }} />
             </div>
-            <div className="flex flex-wrap gap-2 mt-5 mb-4">
-                {previews.map(v => (
-                    <div>
-                        <img src={v} alt="" className='w-[300px]' />
-                    </div>
-                ))}
+            <div className="flex flex-col gap-2 mt-5 mb-4">
+                {previews.length ? (
+                    <div className="flex gap-2 mt-5 mb-4">
+                        {previews.map((v, i) => (
+                            <img src={v} alt="" className='w-[300px]' key={i} />
+                        ))}
+                    </div>)
+                    : null}
+                {oldImages.length ? (
+                    <>
+                        <h4 className='text-ld font-medium'>Previous Images</h4>
+                        <div className='flex gap-2 mt-5 mb-4'>
+                            {oldImages.map((v, i) => (
+                                <div>
+                                    <Trash2
+                                        onClick={() => handleRemove(v)}
+                                        className='bg-red-600 p-2 cursor-pointer rounded-full absolute text-white h-8 w-8 -mt-3 -ml-3 z-40' />
+                                    <img src={v} alt="" className='w-[300px] -z-10' key={i} />
+                                </div>
+                            ))}
+                        </div>
+                    </>
+                ) : null}
             </div>
             <div className="h-10 bg-[#eee] p-2 rounded">{status}</div>
             <ButtonWithBack
+                label='Submit'
                 goBack={goBack}
                 loading={isSubmitting}
                 containerClass='justify-end'

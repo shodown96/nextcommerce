@@ -26,7 +26,7 @@ export const UserMenuItem = ({
       )}
       onClick={onClick}
     >
-      {/* {icon ?? null} */}
+      {icon ?? null}
       <span>{text}</span>
     </DropdownMenuItem>
   );

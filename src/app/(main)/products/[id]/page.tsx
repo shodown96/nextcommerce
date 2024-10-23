@@ -66,7 +66,9 @@ export default function ProductPage({ params }: {
         const fetchProduct = async () => {
             if (!product) {
                 const result = await getProduct(params.id)
-                setProduct(result)
+                if (result) {
+                    setProduct(result)
+                }
             }
         }
         fetchProduct()
@@ -155,7 +157,7 @@ export default function ProductPage({ params }: {
                             </ul>
                         </div>
                     ) : null}
-                    <AddToCartButton product={product} disabled={product.stock <= 0} />
+                    <AddToCartButton product={product} />
                 </div>
             </div>
             <ProductMetadata metadata={product.metadata} />

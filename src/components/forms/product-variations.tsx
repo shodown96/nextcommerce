@@ -11,10 +11,12 @@ function ProductVariationsForm({
   onSubmit = () => { },
   goBack = () => { },
   initalValues,
+  productId = ""
 }: {
   goBack?: (() => void)
   onSubmit: (values: any) => void,
-  initalValues: any
+  initalValues: any,
+  productId?:string
 }) {
 
   const formik = useFormik<NewProductVariationsSchemaType>({
@@ -72,7 +74,7 @@ function ProductVariationsForm({
           <div className={cn(
             values.variations.length - 1 !== i ? 'border-b border-[#aaa] pb-4' : ''
           )} key={i}>
-            <div className='flex items-end gap-2 mb-6'>
+            <div className='flex items-end gap-2 mb-6 max-lg:flex-wrap'>
               <Input
                 label={v.label || "Label"}
                 onBlur={handleBlur(`variations[${i}].label`)}

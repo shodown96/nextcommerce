@@ -1,9 +1,9 @@
 import React, { PropsWithChildren } from 'react'
 
-function ProfileLayout({children}:PropsWithChildren) {
+function ProfileLayout({ children }: PropsWithChildren) {
   return (
     <div>
-        {children}
+      {children}
     </div>
   )
 }

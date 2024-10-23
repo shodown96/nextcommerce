@@ -6,17 +6,22 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
+import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 function ProductDetailsForm({
     onSubmit = () => { },
     goBack = () => { },
     initalValues,
+    productId = ""
 }: {
     goBack?: (() => void)
     onSubmit: (values: any) => void,
-    initalValues: any
+    initalValues: any,
+    productId?: string
 }) {
-    const { setNewProductParams } = useProductStore()
+    const pathname = usePathname()
+    const { setProductParams } = useProductStore()
     const formik = useFormik<NewProductDetailsSchemaType>({
         initialValues: initalValues,
         onSubmit: async (values) => {
@@ -32,7 +37,7 @@ function ProductDetailsForm({
         // if (process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
         const product = populateSampleProduct()
         if (product) {
-            setNewProductParams(product)
+            setProductParams(product)
             setValues({
                 name: product.name,
                 description: product.description,
@@ -41,6 +46,15 @@ function ProductDetailsForm({
         }
         // }
     });
+    useEffect(() => {
+        if (initalValues.name && productId) {
+            setValues({
+                name: initalValues.name,
+                description: initalValues.description,
+                price: initalValues.price,
+            })
+        }
+    }, [initalValues])
     return (
         <form onSubmit={handleSubmit} className=''>
             <div className='flex flex-col gap-4 mb-4'>

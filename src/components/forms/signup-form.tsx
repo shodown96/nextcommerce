@@ -14,7 +14,6 @@ import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
 import { MESSAGES } from "@/lib/constants/messages";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
-PasswordInput
 
 export default function SignupForm() {
   const router = useRouter();

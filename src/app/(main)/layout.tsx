@@ -2,6 +2,7 @@
 import Hydrant from '@/components/custom/hydrant';
 import AuthGuard from '@/components/custom/navbar/auth-guard';
 import { Navbar } from '@/components/custom/navbar/navbar';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import React from 'react';
 
 function MainLayout({
@@ -16,10 +17,12 @@ function MainLayout({
             <Navbar />
             <Hydrant>
                 <AuthGuard>
+                <TooltipProvider>
                     <main>
                         {children}
                         {modal}
                     </main>
+                    </TooltipProvider>
                 </AuthGuard>
             </Hydrant>
         </>
