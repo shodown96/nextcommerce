@@ -34,6 +34,8 @@ export const MESSAGES = {
   ResetPasswordSuccessfully:
     "Your password has been reset successfully. You can sign in using your new password now.",
   Success: "Success.",
+  SuccessfulContact: "Thanks for reaching out, I have received your message and I'll get back to you.",
+  UnexpectedError: "Unable to process request, please try again later."
 };
 
 export const CONSUMER_VALIDATION_MESSAGES = {

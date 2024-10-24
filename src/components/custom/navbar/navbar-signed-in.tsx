@@ -17,6 +17,16 @@ export const NavbarSignedIn = () => {
         text={`Explore`}
         className="max-md:hidden"
       />
+      <NavbarItem
+        href={PATHS.ABOUT}
+        text={`About`}
+        className="max-md:hidden"
+      />
+      <NavbarItem
+        href={PATHS.CONTACT}
+        text={`Contact`}
+        className="max-md:hidden"
+      />
       <div className="max-md:hidden">
         <CartSummaryNav />
       </div>

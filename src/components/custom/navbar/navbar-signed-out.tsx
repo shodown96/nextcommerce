@@ -20,13 +20,13 @@ export const NavbarSignedOut = () => {
           text="About"
         />
         <NavbarItem
+          href={PATHS.EXPLORE}
+          text={`Explore`}
+        />
+        <NavbarItem
           className="w-[75px]" // Fix the shift on hover
           href={PATHS.CONTACT}
           text="Contact"
-        />
-        <NavbarItem
-          href={PATHS.EXPLORE}
-          text={`Explore`}
         />
       </div>
       <NavbarItem
@@ -46,8 +46,10 @@ export const NavbarSignedOut = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-[270px] rounded-[8px] p-0">
             <div className="mx-2 border-b" />
-            <a href={PATHS.LANDING} className="md:hidden"><UserMenuItem text="Home" /></a>
-            <a href={PATHS.EXPLORE} className="md:hidden"><UserMenuItem text="Explore" /></a>
+          <a href={PATHS.LANDING} className="md:hidden"><UserMenuItem text="Home" /></a>
+          <a href={PATHS.ABOUT} className="md:hidden"><UserMenuItem text="About" /></a>
+          <a href={PATHS.EXPLORE} className="md:hidden"><UserMenuItem text="Explore" /></a>
+          <a href={PATHS.CONTACT} className="md:hidden"><UserMenuItem text="Contact" /></a>
             <a href={"#"} className="md:hidden"><CartSummaryNav /></a>
             <div className="mx-2 border-b" />
             <a href={PATHS.SIGN_IN}><UserMenuItem text="Sign in" /></a>
