@@ -54,7 +54,7 @@ export default function ContactPage() {
   } = formik;
 
   useEffect(() => {
-    if (user) {
+    if (user?.firstName) {
       setValues({
         ...values,
         firstName: user.firstName || "",

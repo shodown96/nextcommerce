@@ -11,7 +11,7 @@ type PathKVPType = 'contact'
 
 
 const fetchHTML = async (url: string) => {
-    const result = await axios.get(`${process.env.VERCEL_PROJECT_PRODUCTION_URL}/${url}`)
+    const result = await axios.get(`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}/${url}`)
     return result.data
 }
 
