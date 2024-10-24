@@ -1,19 +1,19 @@
 "use client"
 
+import { PATHS } from '@/lib/constants/paths';
 import { formatMoney } from '@/lib/utils';
 import { Product } from '@prisma/client';
 import Image from 'next/image';
 import { YnsLink } from '../yns-link';
-import { PATHS } from '@/lib/constants/paths';
 
 function ProductItem({
     item,
-    // blurDataUrl,
+    index,
 }: {
     item: Product & {
         images: string[];
     },
-    // blurDataUrl: string
+    index?: number
 }) {
     return (
         <div className="group">
@@ -26,9 +26,8 @@ function ProductItem({
                                 src={item.images[0]}
                                 width={768}
                                 height={768}
-                                // loading={idx < 3 ? "eager" : "lazy"}
-                                // priority={idx < 3}
-                                loading='lazy'
+                                loading={index ? index < 3 ? "eager" : "lazy" : undefined}
+                                priority={index ? index < 3 : false}
                                 sizes="(max-width: 1024x) 100vw, (max-width: 1280px) 50vw, 700px"
                                 alt=""
                             />

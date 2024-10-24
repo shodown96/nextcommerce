@@ -3,6 +3,7 @@ import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { stripeCurrencies } from "./constants/stripe";
 import { CartItem } from "@/types/cart";
+import { SEARCH_RATE } from "./constants";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -74,79 +75,83 @@ export const extractPublicId = (secureUrl: string): string => {
 
 
 export function invariant(condition: unknown, message: string): asserts condition {
-	if (!condition) {
-		throw new Error(message);
-	}
+  if (!condition) {
+    throw new Error(message);
+  }
 }
 
 export const assertInteger = (value: number) => {
-	invariant(Number.isInteger(value), "Value must be an integer");
+  invariant(Number.isInteger(value), "Value must be an integer");
 };
 
 
 const getDecimalsForStripe = (currency: string) => {
-	invariant(currency.length === 3, "currency needs to be a 3-letter code");
+  invariant(currency.length === 3, "currency needs to be a 3-letter code");
 
-	const stripeDecimals = stripeCurrencies[currency.toUpperCase()];
-	const decimals = stripeDecimals ?? 2;
-	return decimals;
+  const stripeDecimals = stripeCurrencies[currency.toUpperCase()];
+  const decimals = stripeDecimals ?? 2;
+  return decimals;
 };
 
 export const getStripeAmountFromDecimal = ({ amount: major, currency = "USD" }: Money) => {
-	const decimals = getDecimalsForStripe(currency);
-	const multiplier = 10 ** decimals;
-	return Number.parseInt((major * multiplier).toFixed(0), 10);
+  const decimals = getDecimalsForStripe(currency);
+  const multiplier = 10 ** decimals;
+  return Number.parseInt((major * multiplier).toFixed(0), 10);
 };
 
 export const getDecimalFromStripeAmount = ({ amount: minor, currency = "USD" }: Money) => {
-	assertInteger(minor);
-	const decimals = getDecimalsForStripe(currency);
-	const multiplier = 10 ** decimals;
-	return Number.parseFloat((minor / multiplier).toFixed(decimals));
+  assertInteger(minor);
+  const decimals = getDecimalsForStripe(currency);
+  const multiplier = 10 ** decimals;
+  return Number.parseFloat((minor / multiplier).toFixed(decimals));
 };
 
 export const formatMoney = ({
-	amount: minor,
-	currency = 'USD',
-	locale = "en-US",
+  amount: minor,
+  currency = 'USD',
+  locale = "en-US",
 }: Money & { locale?: string }) => {
-	const amount = getDecimalFromStripeAmount({ amount: minor, currency });
-	return new Intl.NumberFormat(locale, {
-		style: "currency",
-		currency,
-	}).format(amount);
+  const amount = getDecimalFromStripeAmount({ amount: minor, currency });
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency,
+  }).format(amount);
 };
 
 export const capitalize = (str: string) => (str[0] ? str[0].toUpperCase() + str.slice(1) : "");
 
 export const deslugify = (slug: string) => {
-	return slug
-		.split("-")
-		.map((part) => capitalize(part))
-		.join(" ");
+  return slug
+    .split("-")
+    .map((part) => capitalize(part))
+    .join(" ");
 };
 
 export const safeJsonParse = (str: string | null | undefined): unknown => {
-	if (str === null || str === undefined) {
-		return null;
-	}
-	try {
-		return JSON.parse(str);
-	} catch {
-		return null;
-	}
+  if (str === null || str === undefined) {
+    return null;
+  }
+  try {
+    return JSON.parse(str);
+  } catch {
+    return null;
+  }
 };
 
 
 export const formatProductName = (name: string, variant?: string) => {
-	if (!variant) {
-		return name;
-	}
-	return `${name} (${deslugify(variant)})`;
+  if (!variant) {
+    return name;
+  }
+  return `${name} (${deslugify(variant)})`;
 };
 
-export const totalPrice = (cart : CartItem[]) => {
+export const totalPrice = (cart: CartItem[]) => {
   return cart.reduce((acc, item) => {
     return acc + item.price! * item.quantity!;
   }, 0);
 };
+
+// query after 0.3s of no input
+export const delayDebounceFn = (callBack: () => void) =>
+  setTimeout(callBack, SEARCH_RATE);

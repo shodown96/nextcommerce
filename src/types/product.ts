@@ -62,3 +62,10 @@ export interface Variation {
     label: string;
     options: Option[];
 }
+
+
+export interface SearchProps {
+    pageSize ?: number
+    page ?: number
+    search ?: string
+}

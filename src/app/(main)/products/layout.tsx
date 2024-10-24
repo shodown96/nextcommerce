@@ -8,7 +8,7 @@ function ProductLayout({ children }: { children: ReactNode }) {
     const pathname = usePathname()
     const user = useAuth()
     useEffect(() => {
-        if (pathname.includes("/new")) {
+        if (pathname.includes("/new") || pathname.includes("/update")) {
             if (!user) {
                 redirect(PATHS.SIGN_IN)
             }
