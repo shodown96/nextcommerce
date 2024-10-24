@@ -6,7 +6,7 @@ import axios from 'axios';
 import nodemailer from 'nodemailer';
 
 const pathKVP = {
-    contact: '/templates/contact.html',
+    contact: '/src/templates/contact.html',
 }
 
 type PathKVPType = 'contact'
