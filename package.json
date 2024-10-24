@@ -60,6 +60,7 @@
     "@types/imagemin": "^9.0.0",
     "@types/imagemin-jpegtran": "^5.0.4",
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.16",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "postcss": "^8",
