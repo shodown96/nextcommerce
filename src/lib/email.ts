@@ -1,12 +1,10 @@
 "use server"
-import fs from 'fs';
-import path from 'path';
 
 import axios from 'axios';
 import nodemailer from 'nodemailer';
 
 const pathKVP = {
-    contact: '/src/templates/contact.html',
+    contact: '/templates/contact.html',
 }
 
 type PathKVPType = 'contact'
@@ -29,9 +27,9 @@ export const sendHTML = async ({
     params,
     emailType
 }: HTMLEmailProps) => {
-    const template = path.join(process.cwd(), pathKVP[emailType]);
-    const htmlTemplate = fs.readFileSync(template, 'utf-8');
-    // const htmlTemplate = await fetchHTML(pathKVP[emailType]);
+    // const template = path.join(process.cwd(), pathKVP[emailType]);
+    // const htmlTemplate = fs.readFileSync(template, 'utf-8');
+    const htmlTemplate = await fetchHTML(pathKVP[emailType]);
     // Replace template placeholders with dynamic data
     const filledTemplate = htmlTemplate.replace(/{{(\w+)}}/g, (match: any, p1: any) => {
         return params[p1] || match;
