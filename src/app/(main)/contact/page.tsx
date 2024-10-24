@@ -16,16 +16,16 @@ import toast from "react-hot-toast";
 
 export default function ContactPage() {
   const handleFormSubmit = async (values: ContactParamsType) => {
-    toast.success("Work in progress");
-    // try {
-    //   const result = await sendContact(values);
-    //   if (result) {
-    //     toast.success(MESSAGES.SuccessfulContact);
-    //     formik.resetForm()
-    //   }
-    // } catch (error) {
-    //   toast.error(MESSAGES.UnexpectedError);
-    // }
+    // toast.success("Work in progress");
+    try {
+      const result = await sendContact(values);
+      if (result) {
+        toast.success(MESSAGES.SuccessfulContact);
+        formik.resetForm()
+      }
+    } catch (error) {
+      toast.error(MESSAGES.UnexpectedError);
+    }
   };
 
   const formik = useFormik<ContactParamsType>({
