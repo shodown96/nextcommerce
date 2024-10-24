@@ -10,11 +10,14 @@ import {
   ContactParamsSchema,
   ContactParamsType,
 } from "@/lib/validations/submissions";
+import { useUser } from "@clerk/nextjs";
 import { useFormik } from "formik";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 
 export default function ContactPage() {
+  const { user } = useUser()
   const handleFormSubmit = async (values: ContactParamsType) => {
     // toast.success("Work in progress");
     try {
@@ -46,8 +49,20 @@ export default function ContactPage() {
     errors,
     touched,
     values,
+    setValues,
     isSubmitting,
   } = formik;
+
+  useEffect(() => {
+    if (user) {
+      setValues({
+        ...values,
+        firstName: user.firstName || "",
+        lastName: user.lastName || "",
+        email: user.emailAddresses?.[0]?.emailAddress || "",
+      })
+    }
+  }, [])
   return (
     <div className="grid h-full grid-cols-10 gap-4">
       <div className="col-span-4 min-h-[90vh] max-lg:col-span-full">
