@@ -57,6 +57,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
+    "@tailwindcss/typography": "^0.5.15",
     "@types/imagemin": "^9.0.0",
     "@types/imagemin-jpegtran": "^5.0.4",
     "@types/node": "^20",

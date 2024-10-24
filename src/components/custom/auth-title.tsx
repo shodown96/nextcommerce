@@ -1,11 +1,11 @@
 import { cn } from "@/lib/utils";
 
 export default function AuthTitle({
-  description,
+  description = "",
   descriptionMargin = "mb-8",
   title,
 }: {
-  description: string;
+  description?: string;
   descriptionMargin?: string;
   title: string;
 }) {

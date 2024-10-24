@@ -70,7 +70,7 @@ export default function ContactPage() {
           <div className="lg:w-[500px] pt-20">
             <AuthTitle
               title="Contact us"
-              description="Feel free to use the form below"
+              description="What do you really think about the product?"
             />
 
             <div className="flex gap-4 flex-col">

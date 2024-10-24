@@ -27,7 +27,7 @@ export const getProducts = async ({
             skip: (Number(page) - 1) * Number(pageSize),
             take: Number(pageSize),
         })
-        console.log(products.map(v => v.name), `"${search}"`)
+        // console.log(products.map(v => v.name), `"${search}"`)
         if (!products.length) return ({
             total: 0,
             pageSize,
