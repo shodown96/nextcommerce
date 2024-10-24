@@ -155,25 +155,29 @@ export default function ExplorePage({
             </div>
             <LoaderContainer loading={loading}>
                 <div className='mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4'>
-                    {products?.items?.length ? (products.items.map((product, i) => (
-                        <ProductItem item={product} key={product.id} index={i} />
-                        // make an extension to be able to generate <ProductItem/>
-                    ))) : null}
+                    {products?.items?.length ? (
+                        <>
+                            {products.items.map((product, i) => (
+                                <ProductItem item={product} key={product.id} index={i} />
+                                // make an extension to be able to generate <ProductItem />
+                            ))}
+                            {/* <Pagination className='justify-end'>
+                                <PaginationContent>
+                                    <PaginationItem>
+                                        <PaginationPrevious href="#" />
+                                    </PaginationItem>
+                                    <PaginationItem>
+                                        <PaginationNext href="#" />
+                                    </PaginationItem>
+                                </PaginationContent>
+                            </Pagination> */}
+                            <CustomPagination
+                                totalPages={products.totalPages}
+                                currentPage={products.currentPage}
+                                onPageChange={handlePageChange} />
+                        </>
+                    ) : null}
                 </div>
-                {/* <Pagination className='justify-end'>
-                    <PaginationContent>
-                        <PaginationItem>
-                            <PaginationPrevious href="#" />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationNext href="#" />
-                        </PaginationItem>
-                    </PaginationContent>
-                </Pagination> */}
-                <CustomPagination
-                    totalPages={products.totalPages}
-                    currentPage={products.currentPage}
-                    onPageChange={handlePageChange} />
             </LoaderContainer>
         </div>
     )
