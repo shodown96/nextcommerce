@@ -3,7 +3,7 @@ import { Markdown } from '@/components/custom/markdown'
 
 
 const markdownText = `
-Welcome to NextCommerce platform, a site built to deliver an exceptional shopping experience. I am proud to have developed this platform using cutting-edge technologies, designed to be fast, scalable, and user-friendly.
+Welcome to the NextCommerce platform, a site built to deliver an exceptional shopping experience. I am proud to have developed this platform using cutting-edge technologies, designed to be fast, scalable, and user-friendly.
 
 Our platform leverages **Next.js**, a React framework that enables server-side rendering and static site generation, ensuring optimal performance and SEO. The site is fully responsive, offering a seamless experience across all devices.
 
