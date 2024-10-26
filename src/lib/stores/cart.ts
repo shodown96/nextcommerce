@@ -1,16 +1,15 @@
 
-import { CartItem } from "@/types/cart";
+import { Cart, CartItem } from "@/types/cart";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { calculateTotalCartAmount } from "../utils";
 
 interface State {
-  cart: {
-    items: CartItem[]
-  };
+  cart: Cart;
 }
 
 interface Actions {
-  initialize: () => void;
+  clearCart: () => void;
   addToCart: (item: CartItem) => void;
   reduceQuantity: (item: CartItem) => void;
   removeProduct: (item: CartItem) => void;
@@ -20,15 +19,18 @@ export const useCartStore = create(
   persist<Actions & State>(
     (set, get) => ({
       cart: {
-        items: []
+        items: [],
+        totalAmount: 0
       },
-      initialize: () => set({
+      clearCart: () => set({
         cart: {
-          items: []
+          items: [],
+          totalAmount: 0
         }
       }),
       addToCart: (item) =>
         set(({ cart }) => {
+          let newCart;
           const existingItem = cart.items.find((cartItem) => cartItem.id === item.id);
           if (existingItem) {
             const updatedCart = cart.items.map((cartItem) => {
@@ -37,13 +39,16 @@ export const useCartStore = create(
               }
               return cartItem;
             });
-            return { cart: { ...cart, items: updatedCart } };
+            newCart = { cart: { ...cart, items: updatedCart } };
           } else {
-            return { cart: { ...cart, items: [...cart.items, { ...item, quantity: 1 }] } };
+            newCart = { cart: { ...cart, items: [...cart.items, { ...item, quantity: 1 }] } };
           }
+          const totalAmount = calculateTotalCartAmount(newCart.cart.items)
+          return { ...newCart, totalAmount }
         }),
       reduceQuantity: (item) =>
         set(({ cart }) => {
+          let newCart;
           const existingItem = cart.items.find((cartItem) => cartItem.id === item.id);
           if (existingItem && existingItem.quantity! > 1) {
             const updatedCart = cart.items.map((cartItem) => {
@@ -52,26 +57,29 @@ export const useCartStore = create(
               }
               return cartItem;
             });
-            return { cart: { ...cart, items: updatedCart } };
+            newCart = { cart: { ...cart, items: updatedCart } };
           } else {
             const filteredCart = cart.items.filter((cartItem) => cartItem.id !== item.id);
-            return { cart: { ...cart, items: filteredCart } };
+            newCart = { cart: { ...cart, items: filteredCart } };
           }
+          const totalAmount = calculateTotalCartAmount(newCart.cart.items)
+          return { ...newCart, totalAmount }
         }),
       removeProduct: (item) =>
         set(({ cart }) => {
-          const filteredCart = cart.items.filter((cartItem) => cartItem.id !== item.id);
-          return { cart: { ...cart, items: filteredCart } };
+          const filteredItems = cart.items.filter((cartItem) => cartItem.id !== item.id);
+          const totalAmount = calculateTotalCartAmount(filteredItems)
+          return { cart: { ...cart, items: filteredItems, totalAmount } };
         }),
     }),
     {
       name: "cart-storage",
       // skipHydration: true, // Requires the useStoreHydration usage
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => sessionStorage),
     },
   ),
 );
 
-useCartStore.setState({
-  cart: { items: [] }
-})
+// useCartStore.setState({
+//   cart: { items: [], totalAmount:0 }
+// })

@@ -18,6 +18,7 @@ export enum PATHS {
     NEW_PRODUCT = "/products/new",
     PRODUCTS = "/products",
     CART_OVERLAY = "/cart-overlay",
+    CART = "/cart",
     ORDERS = "/orders"
 }
 

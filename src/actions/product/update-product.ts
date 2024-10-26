@@ -28,7 +28,7 @@ export const updateProduct = async ({
             },
             include: { images: true }
         })
-        return { ...created, images: created.images.map(v => v.url) }
+        return { product: { ...created, images: created.images.map(v => v.url) } }
     } catch (error: unknown) {
         console.error("Error to create product", error);
         return null;

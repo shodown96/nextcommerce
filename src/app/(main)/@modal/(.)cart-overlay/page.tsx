@@ -2,10 +2,11 @@
 import { YnsLink } from "@/components/custom/yns-link";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/lib/stores/cart";
-import { formatMoney, formatProductName, totalPrice } from "@/lib/utils";
+import { formatMoney, formatProductName, calculateTotalCartAmount } from "@/lib/utils";
 import Image from "next/image";
 import { CartAsideContainer } from "./cart-aside";
 import { Minus, Plus, Trash2 } from "lucide-react";
+import { PATHS } from "@/lib/constants/paths";
 
 export default function CartModalPage() {
 	const { cart, addToCart, reduceQuantity, removeProduct } = useCartStore()
@@ -24,14 +25,14 @@ export default function CartModalPage() {
 					<ul role="list" className="-my-6 divide-y divide-neutral-200">
 						{cart.items.map((item) => (
 							<li
-								key={item.id}
+								key={item.product.id}
 								className="grid grid-cols-[4rem,1fr,max-content] grid-rows-[auto,auto] gap-x-4 gap-y-2 py-6"
 							>
-								{item.images[0] ? (
+								{item.product.images[0] ? (
 									<div className="col-span-1 row-span-2 bg-neutral-100">
 										<Image
 											className="aspect-square rounded-md object-cover"
-											src={item.images[0]}
+											src={item.product.images[0]}
 											width={80}
 											height={80}
 											alt=""
@@ -42,10 +43,14 @@ export default function CartModalPage() {
 								)}
 
 								<h3 className="-mt-1 font-semibold leading-tight">
-									{formatProductName(item.name, item.variation?.value)}
+									{formatProductName(
+										item.product.name,
+										item.selectedVariations
+										// item.product.variations?.value
+									)}
 								</h3>
 								<p className="text-sm font-medium leading-none text-right">
-									{formatMoney({ amount: item.price })}
+									{formatMoney({ amount: item.product.price })}
 								</p>
 								<p className="self-end text-sm font-medium text-muted-foreground">
 									Quantity: {item.quantity}
@@ -69,12 +74,12 @@ export default function CartModalPage() {
 				>
 					<p>Total</p>
 					<p>
-						{formatMoney({ amount: totalPrice(cart.items) })}
+						{formatMoney({ amount: calculateTotalCartAmount(cart.items) })}
 					</p>
 				</div>
 				<p className="mt-0.5 text-sm text-neutral-500">Shipping and taxes will be added at the next step</p>
 				<Button asChild={true} size={"lg"} className="mt-6 w-full rounded-full text-lg">
-					<YnsLink href="/cart">Go to payment</YnsLink>
+					<YnsLink href={PATHS.CART}>Go to payment</YnsLink>
 				</Button>
 			</div>
 		</CartAsideContainer>

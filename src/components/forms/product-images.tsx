@@ -1,21 +1,20 @@
+import { createProduct } from '@/actions/product/create-product';
+import { updateProduct } from '@/actions/product/update-product';
 import { MESSAGES } from '@/lib/constants/messages';
-import { useFileStorage } from '@/lib/stores/file';
+import { PATHS } from '@/lib/constants/paths';
 import { useProductStore } from '@/lib/stores/product';
 import { convertToBase64 } from '@/lib/utils';
-import { NewProductImagesSchema, NewProductImagesSchemaType, NewProductSchemaType } from '@/lib/validations/product';
+import { NewProductImagesSchema, NewProductImagesSchemaType } from '@/lib/validations/product';
+import { CreateProductRequestProps } from '@/types/product';
+import { File as DBFile } from '@prisma/client';
 import axios from "axios";
 import { useFormik } from 'formik';
+import { Trash2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import ButtonWithBack from '../custom/button-with-back';
 import { UploadFileInput } from '../custom/files-input';
-import { createProduct } from '@/actions/product/create-product';
-import { File as DBFile } from '@prisma/client';
-import { CreateProductRequestProps } from '@/types/product';
-import { useRouter } from 'next/navigation';
-import { PATHS } from '@/lib/constants/paths';
-import { updateProduct } from '@/actions/product/update-product';
-import { Trash2 } from 'lucide-react';
 
 function ProductImagesForm({
     onSubmit = () => { },
@@ -24,8 +23,8 @@ function ProductImagesForm({
     productId = ""
 }: {
     goBack?: (() => void)
-    onSubmit: (values: any) => void,
-    initalValues: any,
+    onSubmit: (values: NewProductImagesSchemaType) => void,
+    initalValues: NewProductImagesSchemaType,
     productId?: string
 }) {
 
@@ -91,7 +90,7 @@ function ProductImagesForm({
         if (result) {
             console.log(result)
             toast.success(MESSAGES.Success)
-            router.push(`${PATHS.PRODUCTS}/${result.id}`)
+            router.push(`${PATHS.PRODUCTS}/${result.product.id}`)
             initialize()
         } else {
             toast.error('Failed to Ssubmit product.')
@@ -115,7 +114,7 @@ function ProductImagesForm({
             setPreviews(newPreviews)
         } else {
 
-        setPreviews([])
+            setPreviews([])
         }
         return () => { previews.map(v => { URL.revokeObjectURL(v) }) }
     }, [values.images])

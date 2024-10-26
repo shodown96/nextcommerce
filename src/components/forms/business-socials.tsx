@@ -5,7 +5,7 @@ import { BusinessSocialsSchema, BusinessSocialsSchemaType } from '@/lib/validati
 import { useFormik } from 'formik';
 import { ChevronLeft } from 'lucide-react';
 
-function BusinessSocialsForm({ onSubmit = (values: any) => { }, setStep = (v: any) => { } }) {
+function BusinessSocialsForm({ onSubmit = (values: BusinessSocialsSchemaType) => { }, setStep = (v: string) => { } }) {
     const formik = useFormik<BusinessSocialsSchemaType>({
         initialValues: {
             website: "",

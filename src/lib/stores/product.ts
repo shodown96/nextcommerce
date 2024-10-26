@@ -68,6 +68,6 @@ export const useProductStore = create(
   ),
 );
 
-useProductStore.setState({
-  productParams: {}
-})
+// useProductStore.setState({
+//   productParams: {}
+// })

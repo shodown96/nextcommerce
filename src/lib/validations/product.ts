@@ -3,16 +3,7 @@ import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { VALIDATION_MESSAGES } from "@/lib/constants/messages";
 import { format } from "../utils";
-
-const fieldObject = z.object({
-    label: z.string({ required_error: format(VALIDATION_MESSAGES.Required, 'Label') }),
-    value: z.string({ required_error: format(VALIDATION_MESSAGES.Required, 'Value') })
-})
-
-const imageObject = z
-    .any()
-    .refine((file) => file.size <= 1024 * 1024, 'File size should be less than 1MB')
-    .refine((file) => ['image/jpeg', 'image/png'].includes(file.type), 'Only .jpg and .png files are allowed')
+import { fieldObject, imageObject } from "./common";
 
 export const NewProductDetails = z.object({
     name: z.string({ required_error: format(VALIDATION_MESSAGES.Required, 'Product Name') }),

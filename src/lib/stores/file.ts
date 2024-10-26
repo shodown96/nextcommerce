@@ -28,6 +28,6 @@ export const useFileStorage = create(
     ),
 );
 
-useFileStorage.setState({
-    uploadedFiles: []
-})
+// useFileStorage.setState({
+//     uploadedFiles: []
+// })

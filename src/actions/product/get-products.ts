@@ -10,7 +10,7 @@ export const getProducts = async ({
     q: search = "",
     maxPrice = "",
     minPrice = "",
-}): Promise<PaginatedData> => {
+}): Promise<PaginatedData | null> => {
     try {
         const WHERE_QUERY: Prisma.ProductWhereInput = {
             OR: [
@@ -28,13 +28,7 @@ export const getProducts = async ({
             take: Number(pageSize),
         })
         // console.log(products.map(v => v.name), `"${search}"`)
-        if (!products.length) return ({
-            total: 0,
-            pageSize,
-            totalPages: 0,
-            currentPage: page,
-            items: []
-        });
+        if (!products.length) return null;
 
         const total = await prisma.product.count({
             where: WHERE_QUERY,
@@ -51,12 +45,6 @@ export const getProducts = async ({
         })
     } catch (error: unknown) {
         console.error("Error to get projects", error);
-        return ({
-            total: 0,
-            pageSize,
-            totalPages: 0,
-            currentPage: page,
-            items: []
-        });
+        return null;
     }
 };

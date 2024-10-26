@@ -2,12 +2,12 @@ import { populateSampleProduct } from '@/actions/product/populate-sample-product
 import { useProductStore } from '@/lib/stores/product';
 import { NewProductDetailsSchema, NewProductDetailsSchemaType } from '@/lib/validations/product';
 import { useFormik } from 'formik';
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
-import { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 
 function ProductDetailsForm({
     onSubmit = () => { },
@@ -16,8 +16,8 @@ function ProductDetailsForm({
     productId = ""
 }: {
     goBack?: (() => void)
-    onSubmit: (values: any) => void,
-    initalValues: any,
+    onSubmit: (values: NewProductDetailsSchemaType) => void,
+    initalValues: NewProductDetailsSchemaType,
     productId?: string
 }) {
     const pathname = usePathname()

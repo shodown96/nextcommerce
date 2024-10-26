@@ -3,7 +3,7 @@
 import { YnsLink } from "@/components/custom/yns-link";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useCartStore } from "@/lib/stores/cart";
-import { formatMoney, totalPrice } from "@/lib/utils";
+import { formatMoney, calculateTotalCartAmount } from "@/lib/utils";
 import { ShoppingBag, ShoppingBagIcon } from "lucide-react";
 
 const CartFallback = () => (
@@ -27,7 +27,7 @@ const CartSummaryNavInner = () => {
 		return <CartFallback />;
 	}
 
-	const total = totalPrice(cart.items)
+	const total = calculateTotalCartAmount(cart.items)
 	const totalItems = cart.items.reduce((acc, item) => acc + (item.quantity || 1), 0);
 
 	return (

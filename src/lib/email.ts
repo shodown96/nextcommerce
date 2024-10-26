@@ -18,7 +18,7 @@ const fetchHTML = async (url: string) => {
 
 interface HTMLEmailProps {
     subject: string,
-    params: any,
+    params: Record<string, string>,
     emailType: PathKVPType
 }
 
@@ -31,7 +31,7 @@ export const sendHTML = async ({
     // const htmlTemplate = fs.readFileSync(template, 'utf-8');
     const htmlTemplate = await fetchHTML(pathKVP[emailType]);
     // Replace template placeholders with dynamic data
-    const filledTemplate = htmlTemplate.replace(/{{(\w+)}}/g, (match: any, p1: any) => {
+    const filledTemplate = htmlTemplate.replace(/{{(\w+)}}/g, (match: string, p1: string) => {
         return params[p1] || match;
     });
     try {

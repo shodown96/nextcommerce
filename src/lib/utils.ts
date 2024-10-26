@@ -127,6 +127,13 @@ export const deslugify = (slug: string) => {
     .join(" ");
 };
 
+export const slugifyVariations = (selectedVariations: Record<string, string>) => {
+  return Object.entries(selectedVariations)
+    .sort(([keyA], [keyB]) => keyA.localeCompare(keyB)) // Sort entries alphabetically by key
+    .map(([key, value]) => `${key}: ${value}`)
+    .join(', ');
+};
+
 export const safeJsonParse = (str: string | null | undefined): unknown => {
   if (str === null || str === undefined) {
     return null;
@@ -139,19 +146,38 @@ export const safeJsonParse = (str: string | null | undefined): unknown => {
 };
 
 
-export const formatProductName = (name: string, variant?: string) => {
-  if (!variant) {
+export const formatProductName = (name: string, variations?: Record<string, string>) => {
+  if (!variations || !Object.keys(variations).length) {
     return name;
   }
-  return `${name} (${deslugify(variant)})`;
+  return `${name} (${slugifyVariations(variations)})`;
 };
 
-export const totalPrice = (cart: CartItem[]) => {
+export const calculateTotalCartAmount = (cart: CartItem[]) => {
   return cart.reduce((acc, item) => {
-    return acc + item.price! * item.quantity!;
+    return acc + item.product.price! * item.quantity!;
   }, 0);
 };
+
+export const generateUniqueId = (selectedVariations: Record<string, string>): string => {
+  const variationString = Object.entries(selectedVariations)
+    .sort(([keyA], [keyB]) => keyA.localeCompare(keyB)) // Sort to ensure consistent order
+    .map(([key, value]) => `${key}:${value}`)
+    .join('|');
+
+  // Simple hash function using reduce
+  const hash = [...variationString].reduce((acc, char) => {
+    return (acc << 5) - acc + char.charCodeAt(0);
+  }, 0);
+
+  return `id_${Math.abs(hash)}`;
+};
+
 
 // query after 0.3s of no input
 export const delayDebounceFn = (callBack: () => void) =>
   setTimeout(callBack, SEARCH_RATE);
+
+export const calculateCartTotalPossiblyWithTax = () => {
+
+}

@@ -1,29 +1,26 @@
-// import { getCartFromCookiesAction } from "@/actions/cart-actions";
-// import { CheckoutCard } from "@/ui/checkout/checkout-card";
-// import { getTranslations } from "next-intl/server";
-// import type { Metadata } from "next/types";
+"use client"
+import { CartEmpty } from "@/components/custom/checkout/cart-empty";
+import { CartSummaryTable } from "@/components/custom/checkout/cart-summary-table";
+import CheckoutCard from "@/components/custom/checkout/checkout-card";
+import { useCartStore } from "@/lib/stores/cart";
 
-// export const generateMetadata = async (): Promise<Metadata> => {
-// 	const t = await getTranslations("/cart.metadata");
-// 	return {
-// 		title: t("title"),
-// 	};
-// };
+export default function CartPage() {
+  const { cart } = useCartStore();
+  if (cart.items.length === 0) {
+    return <CartEmpty />;
+  }
 
-// export default async function CartPage() {
-// 	const cart = await getCartFromCookiesAction();
-// 	if (!cart) {
-// 		return null;
-// 	}
-
-// 	return <CheckoutCard cart={cart.cart} />;
-// }
-import React from 'react'
-
-function CartPage() {
   return (
-	<div>CartPage</div>
-  )
+    <>
+      <div className="my-8 xl:col-span-7">
+        <div className="sticky top-1">
+          <h1 className="mb-4 text-3xl font-bold leading-none tracking-tight">Your cart</h1>
+          <CartSummaryTable cart={structuredClone(cart)} />
+        </div>
+      </div>
+      <div className="my-8 max-w-[65ch] xl:col-span-5">
+        <CheckoutCard cart={cart} />
+      </div>
+    </>
+  );
 }
-
-export default CartPage

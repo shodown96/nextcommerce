@@ -41,7 +41,7 @@ export const useAuthStore = create(
   ),
 );
 
-useAuthStore.setState({
-  user: null,
-  resetPasswordParams: { email: "", code: "" },
-})
+// useAuthStore.setState({
+//   user: null,
+//   resetPasswordParams: { email: "", code: "" },
+// })

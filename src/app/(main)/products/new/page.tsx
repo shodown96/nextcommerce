@@ -9,6 +9,7 @@ import ProductImagesForm from '@/components/forms/product-images';
 import ProductVariationsForm from '@/components/forms/product-variations';
 import { Input } from '@/components/ui/input';
 import { useProductStore } from '@/lib/stores/product';
+import { NewProductDetailsSchemaType, NewProductExtrasSchemaType, NewProductImagesSchemaType, NewProductVariationsSchemaType } from '@/lib/validations/product';
 import { useState } from 'react';
 
 const TAB_ITEMS = ['details', 'variations', 'metadata', 'images']
@@ -16,7 +17,7 @@ function NewProductPage() {
   const [tab, setTab] = useState(0)
   const { productParams } = useProductStore()
 
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async () => {
     if (tab < TAB_ITEMS.length - 1) {
       setTab(tab + 1)
     }
@@ -45,20 +46,31 @@ function NewProductPage() {
             />
           </div>
           <div className="lg:hidden">
-            <Input disabled value={TAB_ITEMS[tab]} className='capitalize'/>
+            <Input disabled value={TAB_ITEMS[tab]} className='capitalize' />
           </div>
           <br />
           {tab === 0 ? (
-            <ProductDetailsForm onSubmit={handleSubmit} initalValues={productParams} />
+            <ProductDetailsForm
+              onSubmit={handleSubmit}
+              initalValues={productParams as NewProductDetailsSchemaType} />
           ) : null}
           {tab === 1 ? (
-            <ProductVariationsForm onSubmit={handleSubmit} initalValues={productParams} goBack={goBack} />
+            <ProductVariationsForm
+              onSubmit={handleSubmit}
+              initalValues={productParams as NewProductVariationsSchemaType}
+              goBack={goBack} />
           ) : null}
           {tab === 2 ? (
-            <ProductExtrasForm onSubmit={handleSubmit} initalValues={productParams} goBack={goBack} />
+            <ProductExtrasForm
+              onSubmit={handleSubmit}
+              initalValues={productParams as NewProductExtrasSchemaType}
+              goBack={goBack} />
           ) : null}
           {tab === 3 ? (
-            <ProductImagesForm onSubmit={handleSubmit} initalValues={productParams} goBack={goBack} />
+            <ProductImagesForm
+              onSubmit={handleSubmit}
+              initalValues={productParams as NewProductImagesSchemaType}
+              goBack={goBack} />
           ) : null}
         </div>
 

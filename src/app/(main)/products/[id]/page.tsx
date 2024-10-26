@@ -67,7 +67,7 @@ export default function ProductPage({ params }: {
             if (!product) {
                 const result = await getProduct(params.id)
                 if (result) {
-                    setProduct(result)
+                    setProduct(result.product as any)
                 }
             }
         }
@@ -157,7 +157,9 @@ export default function ProductPage({ params }: {
                             </ul>
                         </div>
                     ) : null}
-                    <AddToCartButton product={product} />
+                    <AddToCartButton product={product} selectedVariations={selectedVariations} disabled={
+                        product.variations.length ? !Object.keys(selectedVariations).length : false
+                    } />
                 </div>
             </div>
             <ProductMetadata metadata={product.metadata} />

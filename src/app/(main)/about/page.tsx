@@ -17,9 +17,9 @@ Our platform leverages **Next.js**, a React framework that enables server-side r
 
 - **Tailwind CSS**: The user interface is designed with **Tailwind CSS**, a utility-first CSS framework. This ensures our site is not only visually appealing but also highly customizable.
 
-- **ShadCN Components**: For reusable, accessible, and beautifully designed UI components, I've used **shadcn/ui**, allowing us to deliver a consistent user experience across all pages.
+- **Shadcn Components**: For reusable, accessible, and beautifully designed UI components, I've used **shadcn/ui**, allowing us to deliver a consistent user experience across all pages.
 
-Whether you’re here to browse or make a purchase, our platform is built to provide you with a reliable and enjoyable experience. Thank you for choosing us!
+Whether you’re here to browse or make a purchase, this platform is built to provide you with a reliable and enjoyable experience. Have fun looking around!
 
 `
 

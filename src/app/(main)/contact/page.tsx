@@ -25,6 +25,8 @@ export default function ContactPage() {
       if (result) {
         toast.success(MESSAGES.SuccessfulContact);
         formik.resetForm()
+      } else {
+        toast.error(MESSAGES.UnexpectedError);
       }
     } catch (error) {
       toast.error(MESSAGES.UnexpectedError);

@@ -1,9 +1,9 @@
 import { NewProductExtrasSchema, NewProductExtrasSchemaType } from '@/lib/validations/product';
 import { useFormik } from 'formik';
-import { ChevronLeft, Trash2Icon } from 'lucide-react';
+import { Trash2Icon } from 'lucide-react';
+import ButtonWithBack from '../custom/button-with-back';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import ButtonWithBack from '../custom/button-with-back';
 
 function ProductExtrasForm({
     onSubmit = () => { },
@@ -12,8 +12,8 @@ function ProductExtrasForm({
     productId = ""
 }: {
     goBack?: (() => void)
-    onSubmit: (values: any) => void,
-    initalValues: any,
+    onSubmit: (values: NewProductExtrasSchemaType) => void,
+    initalValues: NewProductExtrasSchemaType,
     productId?:string
 }) {
 

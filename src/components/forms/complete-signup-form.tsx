@@ -37,7 +37,7 @@ export default function SignupForm() {
         await setActive({ session: completeSignUp.createdSessionId });
         router.push(PATHS.ONBOARDING);
       }
-    } catch (err: any) {
+    } catch (err) {
       if (isClerkError(err)) {
         console.log(err.errors?.[0])
         const message = mapErrorToMessage(err.errors?.[0]?.code);

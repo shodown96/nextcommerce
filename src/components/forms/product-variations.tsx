@@ -1,5 +1,8 @@
 import { cn } from '@/lib/utils';
-import { NewProductVariationsSchema, NewProductVariationsSchemaType } from '@/lib/validations/product';
+import {
+  NewProductVariationsSchema,
+  NewProductVariationsSchemaType
+} from '@/lib/validations/product';
 import { useFormik } from 'formik';
 import { Trash2Icon } from 'lucide-react';
 import { Fragment } from 'react';
@@ -14,8 +17,8 @@ function ProductVariationsForm({
   productId = ""
 }: {
   goBack?: (() => void)
-  onSubmit: (values: any) => void,
-  initalValues: any,
+  onSubmit: (values: NewProductVariationsSchemaType) => void,
+  initalValues: NewProductVariationsSchemaType,
   productId?:string
 }) {
 

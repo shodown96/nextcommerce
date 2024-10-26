@@ -16,7 +16,6 @@ export const createProduct = async ({
         }
 
         const { images, ...rest } = product
-        // not added clerkuserid
         const created = await prisma.product.create({
             data: {
                 ...rest,
@@ -25,7 +24,11 @@ export const createProduct = async ({
             },
             include: { images: true }
         })
-        return { ...created, images: created.images.map(v => v.url) }
+        const newProduct = {
+            ...created,
+            images: created.images.map(v => v.url)
+        }
+        return { product: newProduct }
     } catch (error: unknown) {
         console.error("Error to create product", error);
         return null;

@@ -3,7 +3,7 @@
 import { getSimilarProducts } from "@/actions/product/get-similar-products";
 import { PATHS } from "@/lib/constants/paths";
 import { formatMoney } from "@/lib/utils";
-import { ProductsResponseProps } from "@/types/product";
+import { GetProductsResponseProps } from "@/types/product";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -11,18 +11,20 @@ import { YnsLink } from "../yns-link";
 
 function SimilarProducts({ productId }: { productId: string }) {
     const [loading, setLoading] = useState(false)
-    const [products, setProducts] = useState<ProductsResponseProps[]>([]);
+    const [products, setProducts] = useState<GetProductsResponseProps['products'] | null>(null);
     useEffect(() => {
         const fetchProduct = async () => {
             setLoading(true)
-            if (!products.length) {
+            if (!products) {
                 const result = await getSimilarProducts(productId)
-                setProducts(result)
+                if (result) {
+                    setProducts(result.products)
+                }
             }
             setLoading(false)
         }
         fetchProduct()
-    }, [products.length])
+    }, [products])
 
     if (loading) return (
         <div className="flex items-center justify-center p-2">
@@ -36,7 +38,7 @@ function SimilarProducts({ productId }: { productId: string }) {
                 <h2 className="text-2xl font-bold tracking-tight">You May Also Like</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {products.map((product) => {
+                {products?.length ? products.map((product) => {
                     const link = `${PATHS.PRODUCTS}/${product.id}`
                     return (
                         <div key={product.id} className="bg-card rounded overflow-hidden shadow group">
@@ -71,7 +73,7 @@ function SimilarProducts({ productId }: { productId: string }) {
                             </div>
                         </div>
                     );
-                })}
+                }) : null}
             </div>
         </section>
     )
