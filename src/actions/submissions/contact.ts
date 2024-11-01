@@ -17,7 +17,7 @@ export const sendContact = async ({
   });
   try {
     await sendHTML({
-      subject: 'New contact message from DevOps Dojo',
+      subject: 'New contact message from NextCommerce',
       params: {
         email,
         message,
