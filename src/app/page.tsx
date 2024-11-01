@@ -41,7 +41,7 @@ export default async function HomePage() {
           </div>
         </section>
 
-        <ProductList products={products} />
+        {products ? <ProductList products={products} /> : null}
 
         {/* <section className="w-full py-8">
         <div className="grid gap-8 lg:grid-cols-2">

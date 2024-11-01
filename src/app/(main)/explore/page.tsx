@@ -8,6 +8,7 @@ async function ExplorePage({
     searchParams: { [key: string]: string | undefined };
 }) {
     const products = await getProducts(searchParams)
+    if (!products) return null
     return (
         <ExploreContainer initialProducts={products} searchParams={searchParams} />
     )

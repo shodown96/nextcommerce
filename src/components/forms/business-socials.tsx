@@ -1,11 +1,17 @@
 import WrappedInput from '@/components/custom/wrapped-input';
 import { Button } from '@/components/ui/button';
 import { PLACEHOLDERS } from '@/lib/constants/auth';
-import { BusinessSocialsSchema, BusinessSocialsSchemaType } from '@/lib/validations/business';
+import { BusinessSocialsSchema, BusinessSocialsSchemaType, FullBusinessParams } from '@/lib/validations/business';
 import { useFormik } from 'formik';
 import { ChevronLeft } from 'lucide-react';
 
-function BusinessSocialsForm({ onSubmit = (values: BusinessSocialsSchemaType) => { }, setStep = (v: string) => { } }) {
+function BusinessSocialsForm({
+    onSubmit,
+    setStep
+}: {
+    onSubmit: (values: any) => Promise<void>,
+    setStep: (v: 'account' | 'socials') => void
+}) {
     const formik = useFormik<BusinessSocialsSchemaType>({
         initialValues: {
             website: "",

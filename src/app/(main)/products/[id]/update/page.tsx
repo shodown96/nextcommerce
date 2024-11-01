@@ -47,9 +47,9 @@ function UpdateProductPage({ params }: { params: { id: string } }) {
         const fetchProduct = async () => {
             setLoading(true)
             const result = await getProduct(params.id)
-            if (result) {
-                if (result.clerkUserId === user.userId)
-                    setProductParams(result)
+            if (result?.product) {
+                if (result.product.clerkUserId === user.userId)
+                    setProductParams(result.product as any)
             }
             setLoading(false)
         }
@@ -79,16 +79,16 @@ function UpdateProductPage({ params }: { params: { id: string } }) {
                         </div>
                         <br />
                         {tab === 0 ? (
-                            <ProductDetailsForm onSubmit={handleSubmit} initalValues={productParams} productId={params.id} />
+                            <ProductDetailsForm onSubmit={handleSubmit} initalValues={productParams as any} productId={params.id} />
                         ) : null}
                         {tab === 1 ? (
-                            <ProductVariationsForm onSubmit={handleSubmit} initalValues={productParams} goBack={goBack} productId={params.id} />
+                            <ProductVariationsForm onSubmit={handleSubmit} initalValues={productParams as any} goBack={goBack} productId={params.id} />
                         ) : null}
                         {tab === 2 ? (
-                            <ProductExtrasForm onSubmit={handleSubmit} initalValues={productParams} goBack={goBack} productId={params.id} />
+                            <ProductExtrasForm onSubmit={handleSubmit} initalValues={productParams as any} goBack={goBack} productId={params.id} />
                         ) : null}
                         {tab === 3 ? (
-                            <ProductImagesForm onSubmit={handleSubmit} initalValues={productParams} goBack={goBack} productId={params.id} />
+                            <ProductImagesForm onSubmit={handleSubmit} initalValues={productParams as any} goBack={goBack} productId={params.id} />
                         ) : null}
                     </div>
 
