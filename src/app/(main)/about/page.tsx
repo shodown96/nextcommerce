@@ -1,5 +1,6 @@
 import AuthTitle from '@/components/custom/auth-title'
 import { Markdown } from '@/components/custom/markdown'
+import { PATHS } from '@/lib/constants/paths'
 
 
 const markdownText = `
@@ -21,6 +22,9 @@ Our platform leverages **Next.js**, a React framework that enables server-side r
 
 Whether you’re here to browse or make a purchase, this platform is built to provide you with a reliable and enjoyable experience. Have fun looking around!
 
+
+Have fun 🎉!
+- [Elijah Soladoye](${PATHS.DEVELOPER_PORTFOLIO})
 `
 
 export default async function AboutPage() {
