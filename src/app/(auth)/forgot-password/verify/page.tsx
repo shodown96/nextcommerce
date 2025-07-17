@@ -35,13 +35,13 @@ export default function CodeVerficationPage() {
 
   // TODO: Move to the auth store
   // Send the password reset code to the user's email
-  const sendResetCode = async (values: EmailParamsType) => {
+  const sendResetCode = async () => {
     if (!isLoaded || !signIn) {
       return null;
     }
     try {
       const result = await signIn.create({
-        identifier: values.email,
+        identifier: store.resetPasswordParams?.email || "",
         strategy: "reset_password_email_code",
       });
       if (result.status === "needs_first_factor") {
@@ -107,7 +107,9 @@ export default function CodeVerficationPage() {
 
   const handleResendOTP = () => {
     if (isResendEnabled) {
-      sendResetCode({ email: store.resetPasswordParams?.email || "" });
+      setIsResendEnabled(false)
+      setCountdown(OTP_COUNTDOWN_TIME)
+      sendResetCode();
     }
   };
 
